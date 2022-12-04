@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">foodable-android-java</string>
+    <string name="home">Home</string>
+    <string name="map">Map</string>
+    <string name="goals">Goals</string>
+    <string name="setting">Settings</string>
+</resources>

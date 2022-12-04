@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Signup">
+
+    <!--  Logo & Name  -->
+    <RelativeLayout
+        android:id="@+id/mainLogo"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/mainLogoImg"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/signup_logo" />
+        <TextView
+            android:id="@+id/mainLogoTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mainLogoImg"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:paddingLeft="18dp"
+            android:text="Sign Up"
+            android:textColor="@color/black"
+            android:textSize="35dp"
+            android:textStyle="bold">
+        </TextView>
+    </RelativeLayout>
+    <!-- Name & Email  -->
+    <LinearLayout
+        android:id="@+id/emailPassLayout"
+        android:layout_below="@+id/mainLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/email"
+            android:paddingLeft="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Email"
+            android:textStyle="bold"
+            android:background="@drawable/rounded_edit_text"
+            android:textColorHint="#FFFFFF"
+            android:inputType="textEmailAddress">
+        </EditText>
+
+        <!-- Password  -->
+        <LinearLayout
+            android:id="@+id/passwordLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1"
+            android:orientation="horizontal">
+            <EditText
+                android:layout_weight="0.7"
+                android:id="@+id/password"
+                android:paddingLeft="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:hint="Password"
+                android:textStyle="bold"
+                android:background="@drawable/password_rounded_edittext"
+                android:textColorHint="#FFFFFF"
+                android:inputType="textPassword">
+            </EditText>
+            <Button
+                app:backgroundTint="@null"
+                android:layout_weight="0.3"
+                android:layout_width="0dp"
+                android:layout_marginRight="20dp"
+                android:layout_height="60dp"
+                android:paddingBottom="3dp"
+                android:text="Show"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/show_button_rounded"
+                android:backgroundTint="@color/orange"
+                android:layout_marginTop="15dp">
+            </Button>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Sign Up Button  -->
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/emailPassLayout"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_yellow_button"
+        android:backgroundTint="@color/orange"
+        android:text="Sign Up"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"></Button>
+</RelativeLayout>
