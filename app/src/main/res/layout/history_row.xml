@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rounded_edit_text">
+        <!-- Name -->
+        <TextView
+            android:id="@+id/nameLabel1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:paddingLeft="10dp"
+            android:text="Name: "
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/name1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_toRightOf="@id/nameLabel1"
+            android:paddingLeft="10dp"
+            android:text="Hammad Ahmed"
+            android:textColor="@color/white" />
+        <!-- Type -->
+        <TextView
+            android:id="@+id/typeLabel1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameLabel1"
+            android:layout_marginTop="6dp"
+            android:paddingLeft="10dp"
+            android:text="Type: "
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/type1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name1"
+            android:layout_marginTop="6dp"
+            android:layout_toRightOf="@id/typeLabel1"
+            android:paddingLeft="10dp"
+            android:text="Donor"
+            android:textColor="@color/white" />
+        <!-- Description -->
+        <TextView
+            android:id="@+id/descriptionLabel1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/typeLabel1"
+            android:layout_marginTop="6dp"
+            android:paddingLeft="10dp"
+            android:text="Description: "
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/description1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/type1"
+            android:layout_marginTop="6dp"
+            android:layout_toRightOf="@id/descriptionLabel1"
+            android:paddingLeft="10dp"
+            android:text="3 Onions and 2 Potatoes"
+            android:textColor="@color/white" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/descriptionLabel1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#4ED353"
+            android:text="Delete"
+            android:textColor="@color/white"
+            app:backgroundTint="@null">
+
+        </Button>
+    </RelativeLayout>
+
+</RelativeLayout>

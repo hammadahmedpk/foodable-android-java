@@ -106,6 +106,7 @@ public class CreateProfile extends AppCompatActivity {
                                 user1.put("lastName", lastName.getText().toString());
                                 user1.put("bio", bio.getText().toString());
                                 user1.put("profile", uri.toString());
+                                user1.put("gender", gender);
                                 SharedPreferences putUser = getSharedPreferences("userProfile",MODE_PRIVATE);
                                 SharedPreferences.Editor editor = putUser.edit();
                                 editor.putString("firstName", firstName.getText().toString());
