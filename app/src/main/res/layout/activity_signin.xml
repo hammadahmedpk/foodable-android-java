@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".Signin">
 
     <!--  Logo & Name  -->
@@ -82,6 +83,7 @@
                 android:inputType="textPassword">
             </EditText>
             <Button
+                android:id="@+id/show_password"
                 app:backgroundTint="@null"
                 android:layout_weight="0.3"
                 android:layout_width="0dp"
@@ -119,4 +121,32 @@
         android:textStyle="bold"
         app:backgroundTint="@null">
     </Button>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signin"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        >
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't have a Account?"
+            android:textSize="18sp"
+            />
+
+        <TextView
+            android:id="@+id/signUp"
+            android:textColor="@color/black"
+            android:layout_below="@+id/signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
 </RelativeLayout>
