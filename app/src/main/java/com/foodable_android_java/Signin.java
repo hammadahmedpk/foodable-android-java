@@ -3,7 +3,9 @@ package com.foodable_android_java;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Signin extends AppCompatActivity {
 
@@ -57,16 +67,45 @@ public class Signin extends AppCompatActivity {
             }
         });
 
+
+
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 auth.signInWithEmailAndPassword(email.getText().toString() , Password.getText().toString())
                         .addOnCompleteListener(Signin.this, task -> {
                             if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Toast.makeText(Signin.this, "Sign in success", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), History.class);
-                                startActivity(intent);
+                                // Get the user Information
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                String uid = auth.getCurrentUser().getUid();
+                                DatabaseReference myRef = database.getReference("users").child(uid);
+
+                                myRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        User user = dataSnapshot.getValue(User.class);
+                                        // print the user information
+                                        Log.d("user", user.toString());
+                                        if(user!=null){
+                                            SharedPreferences putUser = getSharedPreferences("userProfile",MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = putUser.edit();
+                                            editor.putString("firstName", user.getFirstName());
+                                            editor.putString("lastName",user.getLastName());
+                                            editor.putString("bio", user.getBio());
+                                            editor.putString("profile",user.getProfile());
+                                            editor.apply();
+                                            // Sign in success, update UI with the signed-in user's information
+                                            Toast.makeText(Signin.this, "Sign in success", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(getApplicationContext(), Home.class);
+                                            startActivity(intent);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        System.out.println("The read failed: " + databaseError.getCode());
+                                    }
+                                });
                             } else {
                                 System.out.println("Sign in failed");
                                 // If sign in fails, display a message to the user.

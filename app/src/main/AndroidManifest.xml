@@ -17,6 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodableandroidjava"
         tools:targetApi="31">
+        <activity
+            android:name=".EditProfile"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -24,9 +31,7 @@
 
         <activity
             android:name=".LocationActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".Home"
             android:exported="false" />
@@ -58,7 +63,7 @@
         </activity>
         <activity
             android:name=".DonateActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

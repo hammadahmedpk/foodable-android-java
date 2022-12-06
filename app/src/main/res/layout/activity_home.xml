@@ -11,46 +11,6 @@
     android:id="@+id/drawerLayout"
     android:background="@color/white"
     >
-    <com.google.android.material.navigation.NavigationView
-        android:background="@color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        android:id="@+id/navigation_view"
-        app:headerLayout="@layout/header_layout"
-        app:menu="@menu/menu_left"
-        app:itemTextColor="@drawable/state_selector"
-        app:itemIconTint="@color/white"
-        android:elevation="10dp"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal"
-            android:paddingHorizontal="20dp"
-            tools:ignore="UseCompoundDrawables">
-            <ImageView
-                android:backgroundTint="@color/orange"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/exit"
-                android:contentDescription="logout"
-                />
-            <TextView
-                android:textColor="@color/orange"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:gravity="center_vertical"
-                android:text="Logout"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_marginStart="10dp"
-                />
-        </LinearLayout>
-    </com.google.android.material.navigation.NavigationView>
     <RelativeLayout
         android:background="@color/white"
         android:layout_width="match_parent"
@@ -62,14 +22,7 @@
             android:padding="20dp"
             >
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/profile"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:contentDescription="something"
-                />
-            <ImageView
+                android:id="@+id/toggler"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
@@ -214,4 +167,17 @@
                 />
         </RelativeLayout>
     </RelativeLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:background="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        android:id="@+id/navigation_view"
+        app:headerLayout="@layout/header_layout"
+        app:menu="@menu/menu_left"
+        app:itemTextColor="@drawable/state_selector"
+        app:itemIconTint="@color/orange"
+        android:elevation="10dp"
+        />
 </androidx.drawerlayout.widget.DrawerLayout>
