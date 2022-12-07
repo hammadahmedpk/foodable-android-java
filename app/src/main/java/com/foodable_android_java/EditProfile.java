@@ -88,6 +88,50 @@ public class EditProfile extends AppCompatActivity {
             return;
         }
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser User = mAuth.getCurrentUser();
+        String str= "";
+        // upload the image to firebase storage
+        FirebaseStorage storage= FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReference();
+
+        StorageReference ref= storageReference.child("profileImg/"+User.getUid());
+        ref.putFile(dpp)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Get a URL to the uploaded content
+                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                // save the user to firebase firestore
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                Map<String, Object> user1 = new HashMap<>();
+                                user1.put("firstName", firstName.getText().toString());
+                                user1.put("lastName", lastName.getText().toString());
+                                user1.put("bio", bio.getText().toString());
+                                user1.put("profile", uri.toString());
+                                SharedPreferences putUser = getSharedPreferences("userProfile",MODE_PRIVATE);
+                                SharedPreferences.Editor editor = putUser.edit();
+                                editor.putString("firstName", firstName.getText().toString());
+                                editor.putString("lastName", lastName.getText().toString());
+                                editor.putString("bio", bio.getText().toString());
+                                editor.putString("profile", uri.toString());
+                                editor.apply();
+
+                                // save userInfo
+                                DatabaseReference myRef = database.getReference("users");
+                                myRef.child(User.getUid()).setValue(user1);
+                                Toast.makeText(EditProfile.this, "Update successful", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(EditProfile.this, "Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override

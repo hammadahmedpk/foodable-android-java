@@ -149,7 +149,6 @@ public class FoodMapActivity extends FragmentActivity implements OnMapReadyCallb
                     ImageView profile = v.findViewById(R.id.userImg);
                     TextView itemName = v.findViewById(R.id.itemName);
                     ImageView itemImg = v.findViewById(R.id.itemImg);
-                    TextView distance = v.findViewById(R.id.distance);
 
                     for (Donation donation : donations) {
                         if (donation.getLocation().equals(marker.getPosition())) {
@@ -158,9 +157,7 @@ public class FoodMapActivity extends FragmentActivity implements OnMapReadyCallb
                             double dist = SphericalUtil.computeDistanceBetween(donation.getLocation(), marker.getPosition());
                             String distanceStr = String.valueOf(dist);
                             distanceStr = String.format("%.2f", dist / 1000) + " km";
-                            distance.setText(distanceStr);
                             Glide.with(FoodMapActivity.this).load(donation.getImages().get(0)).into(itemImg);
-                            Glide.with(FoodMapActivity.this).load(donation.getProfile()).into(profile);
                             break;
                         }
                     }
