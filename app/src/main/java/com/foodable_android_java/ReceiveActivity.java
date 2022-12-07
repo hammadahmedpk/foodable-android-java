@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -105,12 +106,14 @@ public class ReceiveActivity extends AppCompatActivity {
     }
 
     public void sendNotification(){
+        SharedPreferences sharedPreferences = getSharedPreferences("userProfile", MODE_PRIVATE);
+        String userName = sharedPreferences.getString("firstName", "") + " " + sharedPreferences.getString("lastName", "");
         JSONObject json = null;
         try {
             json= new JSONObject("{'app_id':'b717cf86-240c-4897-a95a-1a39996c2e23'," +
                     "'include_external_user_ids': [ '" + donationId + "' ]," +
                     "'contents': { 'en' : 'Your Item is Requested' } ," +
-                    " 'headings' :{'en':'Message From "+donationName+"'} }");
+                    " 'headings' :{'en':'Message From "+userName+"'} }");
             json.put("large_icon", donationImg);
 
         } catch (JSONException e) {
