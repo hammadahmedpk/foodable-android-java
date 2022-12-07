@@ -6,17 +6,17 @@
             android:icon="@drawable/editicon"
             />
         <item android:id="@+id/history"
-            android:title="history"
+            android:title="History"
             android:icon="@drawable/history_24"
             />
         <item android:id="@+id/badges"
-            android:title="badges"
+            android:title="Badges"
             android:icon="@drawable/badge_24"
             />
         <item
             android:id="@+id/logout"
             android:checkable="false"
-            android:title="logout"
+            android:title="Logout"
             android:icon="@drawable/exit"
             />
     </group>

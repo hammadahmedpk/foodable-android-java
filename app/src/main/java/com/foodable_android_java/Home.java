@@ -53,6 +53,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     FoodCardAdapter adapter;
     List<FoodCardModel> foodCard;
     LatLng currentLocation;
+    ImageView dp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         userName = HeaderView.findViewById(R.id.userName);
         profile = HeaderView.findViewById(R.id.profileImage);
         toggler= findViewById(R.id.toggler);
+        dp = findViewById(R.id.dp);
 
         SharedPreferences sharedPreferences = getSharedPreferences("userProfile", MODE_PRIVATE);
         String Fname = sharedPreferences.getString("firstName", "");
@@ -76,7 +78,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         // set the profile image
         Glide.with(getApplicationContext()).load(Url).circleCrop().into(profile);
-
+        Glide.with(getApplicationContext()).load(Url).circleCrop().into(dp);
 
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
@@ -144,7 +146,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
 
                             // toast the location
-                            Toast.makeText(Home.this, "Lat: " + location.getLatitude() + " Long: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(Home.this, "Lat: " + location.getLatitude() + " Long: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
                         }
                         else {
                             Toast.makeText(Home.this, "Location not found!", Toast.LENGTH_SHORT).show();
