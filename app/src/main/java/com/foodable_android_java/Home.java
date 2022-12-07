@@ -132,13 +132,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                                                 String userProfile= snapshot1.child("profile").getValue().toString();
                                                 double distance= SphericalUtil.computeDistanceBetween(currentLocation, donationLocation);
                                                 String distanceStr= String.valueOf(distance);
-                                                if(distance>1000) {
-                                                    // round to two decimal places
-                                                    distanceStr= String.format("%.2f", distance/1000)+ " km";
-
-                                                }else{
-                                                    distanceStr= String.valueOf(distance)+" m";
-                                                }
+                                                // round to two decimal places
+                                                distanceStr= String.format("%.2f", distance/1000)+ " km";
                                                 String ItemImage= snapshot1.child("images").child("0").getValue().toString();
                                                 foodCard.add(new FoodCardModel(ItemImage, title, distanceStr, userName, userProfile));
                                             }
