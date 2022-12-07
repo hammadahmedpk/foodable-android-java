@@ -42,6 +42,7 @@ public class FoodMapActivity extends FragmentActivity implements OnMapReadyCallb
     ImageButton backButtton, myLocation;
     Marker currentMarker;
     ArrayList<Donation> donations;
+    ArrayList<String> donationIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class FoodMapActivity extends FragmentActivity implements OnMapReadyCallb
         backButtton = findViewById(R.id.back_button);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         donations = new ArrayList<>();
+        donationIds = new ArrayList<>();
         getAllDonations();
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -175,6 +177,17 @@ public class FoodMapActivity extends FragmentActivity implements OnMapReadyCallb
             public void onInfoWindowClick(Marker marker) {
                 if (!marker.equals(currentMarker)) {
                     Intent intent = new Intent(FoodMapActivity.this, ReceiveActivity.class);
+                    for (Donation donation : donations) {
+                        if (donation.getLocation().equals(marker.getPosition())) {
+                            intent.putExtra("donationId", donationIds.get(donations.indexOf(donation)));
+                            intent.putExtra("donationName", donation.getName());
+                            intent.putExtra("donationDesc", donation.getDescription());
+                            intent.putExtra("donationLocationLat", donation.getLocation().latitude);
+                            intent.putExtra("donationLocationLng", donation.getLocation().longitude);
+                            intent.putExtra("donationImg", donation.getImages().get(0));
+                            break;
+                        }
+                    }
                     startActivity(intent);
                 }
             }
@@ -208,6 +221,7 @@ public class FoodMapActivity extends FragmentActivity implements OnMapReadyCallb
                 DataSnapshot dataSnapshot = task.getResult();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     if (!snapshot.getKey().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                        String donationId = snapshot.getKey();
                         for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                             Donation donation = new Donation();
                             donation.setTitle(snapshot1.child("title").getValue().toString());
@@ -218,6 +232,7 @@ public class FoodMapActivity extends FragmentActivity implements OnMapReadyCallb
                             donation.setImages(images);
                             donation.setLocation(new LatLng(Double.parseDouble(snapshot1.child("location").child("latitude").getValue().toString()), Double.parseDouble(snapshot1.child("location").child("longitude").getValue().toString())));
                             donations.add(donation);
+                            donationIds.add(donationId);
                         }
                     }
                 }

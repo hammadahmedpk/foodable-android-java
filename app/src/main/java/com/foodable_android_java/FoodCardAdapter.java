@@ -1,6 +1,7 @@
 package com.foodable_android_java;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,14 @@ public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardAdapter.myView
         holder.donnerName.setText(ls.get(position).getDonate_Name());
         Glide.with(c).load(ls.get(position).getDonate_Img()).circleCrop().into(holder.donnerProfileImg);
         Glide.with(c).load(ls.get(position).getItemImg()).into(holder.itemImg);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(c, FoodMapActivity.class);
+                c.startActivity(intent);
+            }
+        });
     }
 
     @Override

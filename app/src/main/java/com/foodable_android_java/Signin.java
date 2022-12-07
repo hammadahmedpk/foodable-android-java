@@ -18,6 +18,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.onesignal.OneSignal;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -78,6 +82,24 @@ public class Signin extends AppCompatActivity {
                                 // Get the user Information
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 String uid = auth.getCurrentUser().getUid();
+                                OneSignal.setExternalUserId(uid, new OneSignal.OSExternalUserIdUpdateCompletionHandler() {
+                                    @Override
+                                    public void onSuccess(JSONObject results) {
+                                        try {
+                                            if (results.has("push") && results.getJSONObject("push").has("success")) {
+                                                boolean isPushSuccess = results.getJSONObject("push").getBoolean("success");
+                                                OneSignal.onesignalLog(OneSignal.LOG_LEVEL.VERBOSE, "Set external user id for push status: " + isPushSuccess);
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(OneSignal.ExternalIdError error) {
+                                        OneSignal.onesignalLog(OneSignal.LOG_LEVEL.VERBOSE, "Set external user id done with error: " + error.toString());
+                                    }
+                                });
                                 DatabaseReference myRef = database.getReference("users").child(uid);
 
                                 myRef.addValueEventListener(new ValueEventListener() {

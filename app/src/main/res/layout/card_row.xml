@@ -90,16 +90,6 @@
                        android:textColor="@color/black"
                        android:textSize="18sp" />
 
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_centerInParent="true"
-                       android:layout_marginLeft="10dp"
-                       android:layout_toRightOf="@id/distance"
-                       android:text="Get it"
-                       android:textColor="@color/black"
-                       android:textSize="18sp"
-                       android:textStyle="bold" />
                </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

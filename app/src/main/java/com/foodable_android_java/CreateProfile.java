@@ -24,6 +24,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.onesignal.OneSignal;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -124,6 +128,25 @@ public class CreateProfile extends AppCompatActivity {
                                 editor.putString("bio", bio.getText().toString());
                                 editor.putString("profile", uri.toString());
                                 editor.apply();
+
+                                OneSignal.setExternalUserId(User.getUid(), new OneSignal.OSExternalUserIdUpdateCompletionHandler() {
+                                    @Override
+                                    public void onSuccess(JSONObject results) {
+                                        try {
+                                            if (results.has("push") && results.getJSONObject("push").has("success")) {
+                                                boolean isPushSuccess = results.getJSONObject("push").getBoolean("success");
+                                                OneSignal.onesignalLog(OneSignal.LOG_LEVEL.VERBOSE, "Set external user id for push status: " + isPushSuccess);
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(OneSignal.ExternalIdError error) {
+                                        OneSignal.onesignalLog(OneSignal.LOG_LEVEL.VERBOSE, "Set external user id done with error: " + error.toString());
+                                    }
+                                });
 
                                 // save userInfo
                                 DatabaseReference myRef = database.getReference("users");
