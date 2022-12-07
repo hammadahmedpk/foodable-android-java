@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RequestProgress">
+
+    <!-- Request progress title-->
+    <RelativeLayout
+        android:id="@+id/requestBar"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/requestProgresstext"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="10dp"
+            android:text="Request Progress"
+            android:textColor="@color/black"
+            android:textSize="29dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/donorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/requestBar"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:text="Donor: "
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/donorName1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/requestBar"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@+id/donorName"
+        android:text="Hammad Ahmed"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/receiverName"
+        android:layout_below="@id/donorName"
+        android:layout_width="wrap_content"
+        android:text="Receiver: "
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/receiverName1"
+        android:layout_toRightOf="@+id/receiverName"
+        android:layout_below="@id/donorName1"
+        android:layout_width="wrap_content"
+        android:text="Hunaid Sohail"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/donorDesc"
+        android:layout_below="@id/receiverName"
+        android:layout_width="wrap_content"
+        android:text="Donor Description:"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/donorDesc1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/receiverName1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/donorDesc"
+        android:text="heheh"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
+
+    <TextView
+        android:id="@+id/recvDesc"
+        android:layout_below="@id/donorDesc"
+        android:layout_width="wrap_content"
+        android:text="Receiver Description:"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/recvDesc1"
+        android:layout_toRightOf="@+id/recvDesc"
+        android:layout_below="@id/donorDesc1"
+        android:layout_width="wrap_content"
+        android:text="heheh"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:layout_height="wrap_content"/>
+
+
+    <Button
+        android:id="@+id/requestCompleted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recvDesc1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="@color/orange"
+        android:text="Request Completed" />
+
+</RelativeLayout>

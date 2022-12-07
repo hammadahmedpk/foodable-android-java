@@ -111,7 +111,9 @@ public class DonateActivity extends AppCompatActivity {
                                 dbImgRef.setValue(uri.toString());
                                 if (finalI == images.size() - 1) {
                                     progressDialog.dismiss();
+                                    Intent intent = new Intent(getApplicationContext(), Home.class);
                                     Toast.makeText(DonateActivity.this, "Donation Added", Toast.LENGTH_SHORT).show();
+                                    startActivity(intent);
                                 }
                             });
                         });
