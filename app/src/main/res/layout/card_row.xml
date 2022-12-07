@@ -21,6 +21,7 @@
             android:orientation="horizontal"
             >
             <ImageView
+                android:scaleType="fitXY"
                 android:id="@+id/itemImg"
                 android:layout_weight=".4"
                 android:layout_width="0dp"
@@ -72,8 +73,8 @@
                    >
                    <ImageView
                        android:id="@+id/locationIcon"
-                       android:layout_width="30dp"
-                       android:layout_height="30dp"
+                       android:layout_width="25dp"
+                       android:layout_height="25dp"
                        android:src="@drawable/location_icon"
                        />
 
@@ -83,23 +84,22 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_centerInParent="true"
-                       android:layout_centerHorizontal="true"
                        android:layout_marginStart="5dp"
                        android:layout_toRightOf="@id/locationIcon"
                        android:text="555 m"
                        android:textColor="@color/black"
                        android:textSize="18sp" />
+
                    <TextView
-                       android:layout_toRightOf="@id/distance"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="Get it"
-                       android:textStyle="bold"
                        android:layout_centerInParent="true"
-                       android:textSize="20sp"
                        android:layout_marginLeft="10dp"
+                       android:layout_toRightOf="@id/distance"
+                       android:text="Get it"
                        android:textColor="@color/black"
-                       />
+                       android:textSize="18sp"
+                       android:textStyle="bold" />
                </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

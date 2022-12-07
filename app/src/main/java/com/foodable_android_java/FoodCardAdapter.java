@@ -22,6 +22,11 @@ public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardAdapter.myView
         this.c = c;
     }
 
+    public void setList(List<FoodCardModel> ls) {
+        this.ls = ls;
+        this.notifyDataSetChanged();
+    }
+
 
     @NonNull
     @Override
