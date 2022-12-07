@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,8 @@ public class CreateProfile extends AppCompatActivity {
     EditText firstName, lastName , bio;
     Uri dpp;
 
+    String email, password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,9 @@ public class CreateProfile extends AppCompatActivity {
         other= findViewById(R.id.other);
         // set the gender on Click listener
         setGender();
+
+        email = getIntent().getStringExtra("email");
+        password = getIntent().getStringExtra("password");
 
         firstName= findViewById(R.id.firstName);
         lastName= findViewById(R.id.lastName);
@@ -92,9 +98,9 @@ public class CreateProfile extends AppCompatActivity {
 
         StorageReference ref= storageReference.child("profileImg/"+User.getUid());
         ref.putFile(dpp)
-                .addOnSuccessListener(new OnSuccessListener<com.google.firebase.storage.UploadTask.TaskSnapshot>() {
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
-                    public void onSuccess(com.google.firebase.storage.UploadTask.TaskSnapshot taskSnapshot) {
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // Get a URL to the uploaded content
                         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
@@ -107,6 +113,10 @@ public class CreateProfile extends AppCompatActivity {
                                 user1.put("bio", bio.getText().toString());
                                 user1.put("profile", uri.toString());
                                 user1.put("gender", gender);
+                                user1.put("email", email);
+                                user1.put("password", password);
+                                user1.put("uid", User.getUid());
+                                Toast.makeText(CreateProfile.this, email, Toast.LENGTH_SHORT).show();
                                 SharedPreferences putUser = getSharedPreferences("userProfile",MODE_PRIVATE);
                                 SharedPreferences.Editor editor = putUser.edit();
                                 editor.putString("firstName", firstName.getText().toString());
