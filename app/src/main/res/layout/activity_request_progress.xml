@@ -142,15 +142,16 @@
         android:textColor="@color/black"
         android:textSize="20dp" />
 
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/requestCompleted"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_below="@id/distance"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:backgroundTint="@color/orange"
-        android:text="Request Completed" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:text="Back to Home"
+        android:textAllCaps="false"
+        android:background="@drawable/round_corner_button"
+        android:textSize="18sp"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

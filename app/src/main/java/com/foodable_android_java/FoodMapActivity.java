@@ -148,7 +148,6 @@ public class FoodMapActivity extends FragmentActivity implements OnMapReadyCallb
                 if (!marker.equals(currentMarker)) {
                     View v = getLayoutInflater().inflate(R.layout.marker_infowindow, null);
                     TextView userName = v.findViewById(R.id.userName);
-                    ImageView profile = v.findViewById(R.id.userImg);
                     TextView itemName = v.findViewById(R.id.itemName);
                     ImageView itemImg = v.findViewById(R.id.itemImg);
 
@@ -182,8 +181,8 @@ public class FoodMapActivity extends FragmentActivity implements OnMapReadyCallb
                             intent.putExtra("donationId", donationIds.get(donations.indexOf(donation)));
                             intent.putExtra("donationName", donation.getName());
                             intent.putExtra("donationDesc", donation.getDescription());
-                            intent.putExtra("donationLocationLat", donation.getLocation().latitude);
-                            intent.putExtra("donationLocationLng", donation.getLocation().longitude);
+                            intent.putExtra("donationLocationLat", String.valueOf(donation.getLocation().latitude));
+                            intent.putExtra("donationLocationLng", String.valueOf(donation.getLocation().longitude));
                             intent.putExtra("donationImg", donation.getImages().get(0));
                             break;
                         }
@@ -226,6 +225,7 @@ public class FoodMapActivity extends FragmentActivity implements OnMapReadyCallb
                             Donation donation = new Donation();
                             donation.setTitle(snapshot1.child("title").getValue().toString());
                             donation.setName(snapshot1.child("name").getValue().toString());
+                            donation.setDescription(snapshot1.child("description").getValue().toString());
                             donation.setProfile(snapshot1.child("profile").getValue().toString());
                             ArrayList<String> images = new ArrayList<>();
                             images.add(snapshot1.child("images").child("0").getValue().toString());

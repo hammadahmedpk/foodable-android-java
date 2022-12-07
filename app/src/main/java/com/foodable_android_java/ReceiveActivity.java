@@ -70,13 +70,17 @@ public class ReceiveActivity extends AppCompatActivity {
                     Toast.makeText(ReceiveActivity.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(ReceiveActivity.this, "Receiver Information Uploaded", Toast.LENGTH_SHORT).show();
-
-//                    Intent i = new Intent(ReceiveActivity.this, RequestProgress.class);
-//                    i.putExtra("receiverName", name.getText().toString());
-//                    i.putExtra("receiverDesc", description.getText().toString());
-//                    i.putExtra("receiverLocationLat", latitude.toString());
-//                    i.putExtra("receiverLocationLng", longitude.toString());
-//                    startActivity(i);
+                    sendNotification();
+                    Intent i = new Intent(ReceiveActivity.this, RequestProgress.class);
+                    i.putExtra("donationName", donationName);
+                    i.putExtra("donationLocationLat", donationLocationLat);
+                    i.putExtra("donationLocationLng", donationLocationLng);
+                    i.putExtra("donationDesc", donationDesc);
+                    i.putExtra("receiverName", name.getText().toString());
+                    i.putExtra("receiverDesc", description.getText().toString());
+                    i.putExtra("receiverLocationLat", latitude.toString());
+                    i.putExtra("receiverLocationLng", longitude.toString());
+                    startActivity(i);
                 }
             }
         });
