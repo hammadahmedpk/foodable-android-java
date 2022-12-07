@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,15 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+
 public class DonateActivity extends AppCompatActivity {
     ImageButton backButtton;
     AppCompatButton submitButton, quantity1, quantity2, quantity3, quantity4, quantity5;
@@ -26,6 +36,7 @@ public class DonateActivity extends AppCompatActivity {
     Integer quantity = 0;
     Double latitude = 0.0, longitude = 0.0;
     Boolean isImageSelected = false;
+    ArrayList<Uri> images = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +86,34 @@ public class DonateActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (title.getText().toString().isEmpty() || description.getText().toString().isEmpty() || pickUpTime.getText().toString().isEmpty() || quantity == 0 || latitude == 0.0 || longitude == 0.0 || isImageSelected == false) {
                     Toast.makeText(DonateActivity.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(DonateActivity.this, "Data Validated!", Toast.LENGTH_SHORT).show();
+                } else
+                {
+                    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("donations").child(FirebaseAuth.getInstance().getUid());
+                    String key = dbRef.push().getKey();
+                    dbRef = dbRef.child(key);
+                    ProgressDialog progressDialog = new ProgressDialog(DonateActivity.this);
+                    progressDialog.setTitle("Uploading...");
+                    progressDialog.show();
+                    Donation donation = new Donation(title.getText().toString(), description.getText().toString(), pickUpTime.getText().toString(), quantity.toString(), list_days.getSelectedItem().toString(), new LatLng(latitude, longitude));
+                    dbRef.setValue(donation);
+                    StorageReference storageReference = FirebaseStorage.getInstance().getReference("donationImgs");
+
+                    for (int i = 0; i < images.size(); i++) {
+                        StorageReference imgRef = storageReference.child(key + "_" + i);
+                        DatabaseReference finalDbRef = dbRef;
+                        DatabaseReference dbImgRef = dbRef.child("images").child(String.valueOf(i));
+                        int finalI = i;
+                        imgRef.putFile(images.get(i)).addOnCompleteListener(taskSnapshot -> {
+                            imgRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                                dbImgRef.setValue(uri.toString());
+                                if (finalI == images.size() - 1) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(DonateActivity.this, "Donation Added", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        });
+
+                    }
                 }
             }
         });
@@ -91,6 +128,7 @@ public class DonateActivity extends AppCompatActivity {
                 int count = data.getClipData().getItemCount();
                 for(int i = 0; i < count; i++) {
                     Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                    images.add(imageUri);
                     selectImage.setImageURI(imageUri);
                     isImageSelected = true;
 
@@ -98,6 +136,7 @@ public class DonateActivity extends AppCompatActivity {
             }
             else {
                 Uri imageUri = data.getData();
+                images.add(imageUri);
                 selectImage.setImageURI(imageUri);
                 isImageSelected = true;
 

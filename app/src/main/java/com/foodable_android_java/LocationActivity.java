@@ -79,7 +79,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                     currentLocation = new LatLng(address.getLatitude(), address.getLongitude());
                     mMap.clear();
                     mMap.addMarker(new MarkerOptions().position(currentLocation).title(location));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 14));
                     searchText.setText("");
                 }
             }
@@ -103,7 +103,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                                 currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
                                 mMap.clear();
                                 mMap.addMarker(new MarkerOptions().position(currentLocation).title("My Location"));
-                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10));
+                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 14));
                             }
                             else {
                                 Toast.makeText(LocationActivity.this, "Location not found\nTry Again!", Toast.LENGTH_SHORT).show();
@@ -141,7 +141,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                     if (location != null) {
                         currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
                         mMap.addMarker(new MarkerOptions().position(currentLocation).title("Last Location"));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 14));
                     }
                 });
         }
@@ -157,7 +157,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                 mMap.clear();
                 currentLocation = new LatLng(point.latitude, point.longitude);
                 mMap.addMarker(new MarkerOptions().position(currentLocation).title("New Marker"));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 10));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 14));
             }
         });
 

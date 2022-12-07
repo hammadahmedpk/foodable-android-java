@@ -27,6 +27,7 @@
             android:layout_height="50dp"
             android:padding="10dp"
             android:hint="Search location"
+            android:textColorHint="@color/white"
             android:background="@null"
             android:textAlignment="viewStart"
             android:drawableLeft="@drawable/search_icon_white"
