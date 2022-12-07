@@ -98,14 +98,14 @@
 
     <TextView
         android:id="@+id/recvDesc"
-        android:layout_below="@id/donorDesc"
         android:layout_width="wrap_content"
-        android:text="Receiver Description:"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/donorDesc"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
+        android:text="Receiver Description:"
         android:textColor="@color/black"
-        android:textSize="20dp"
-        android:layout_height="wrap_content"/>
+        android:textSize="20dp" />
     <TextView
         android:id="@+id/recvDesc1"
         android:layout_toRightOf="@+id/recvDesc"
@@ -119,11 +119,35 @@
         android:layout_height="wrap_content"/>
 
 
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recvDesc"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Mutual Distance: "
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/distance1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recvDesc1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/distance"
+        android:text="20KM"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
+
     <Button
         android:id="@+id/requestCompleted"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/recvDesc1"
+        android:layout_below="@id/distance"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
         android:backgroundTint="@color/orange"
