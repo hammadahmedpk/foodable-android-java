@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -94,13 +95,15 @@ public class DonateActivity extends AppCompatActivity {
                     ProgressDialog progressDialog = new ProgressDialog(DonateActivity.this);
                     progressDialog.setTitle("Uploading...");
                     progressDialog.show();
-                    Donation donation = new Donation(title.getText().toString(), description.getText().toString(), pickUpTime.getText().toString(), quantity.toString(), list_days.getSelectedItem().toString(), new LatLng(latitude, longitude));
+                    SharedPreferences sharedPreferences = getSharedPreferences("userProfile", MODE_PRIVATE);
+                    String name = sharedPreferences.getString("firstName", "") + " " + sharedPreferences.getString("lastName", "");
+                    String profile = sharedPreferences.getString("profile", "");
+                    Donation donation = new Donation(name, profile, title.getText().toString(), description.getText().toString(), pickUpTime.getText().toString(), quantity.toString(), list_days.getSelectedItem().toString(), new LatLng(latitude, longitude));
                     dbRef.setValue(donation);
                     StorageReference storageReference = FirebaseStorage.getInstance().getReference("donationImgs");
 
                     for (int i = 0; i < images.size(); i++) {
                         StorageReference imgRef = storageReference.child(key + "_" + i);
-                        DatabaseReference finalDbRef = dbRef;
                         DatabaseReference dbImgRef = dbRef.child("images").child(String.valueOf(i));
                         int finalI = i;
                         imgRef.putFile(images.get(i)).addOnCompleteListener(taskSnapshot -> {

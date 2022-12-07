@@ -5,24 +5,44 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 
 public class Donation {
+    private String name;
     private String title;
     private String description;
     private String pickUpTime;
     private String quantity;
     private String listFor;
     private LatLng location;
+    private String profile;
     ArrayList<String> images;
 
     public Donation() {
     }
 
-    public Donation(String title, String description, String pickUpTime, String quantity, String listFor, LatLng location) {
+    public Donation(String name, String profile, String title, String description, String pickUpTime, String quantity, String listFor, LatLng location) {
+        this.name = name;
+        this.profile = profile;
         this.title = title;
         this.description = description;
         this.pickUpTime = pickUpTime;
         this.quantity = quantity;
         this.listFor = listFor;
         this.location = location;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
     public String getTitle() {
