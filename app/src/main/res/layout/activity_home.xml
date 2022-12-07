@@ -35,11 +35,19 @@
 
         </RelativeLayout>
 
+        <ScrollView
+            android:layout_below="@id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ScrollView>
+
         <RelativeLayout
+            android:id="@+id/card_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/bottom_menu"
             android:layout_below="@+id/toolbar">
+
             <RelativeLayout
                 android:layout_margin="20dp"
                 android:id="@+id/card1"
@@ -99,52 +107,18 @@
 
                         />
                 </RelativeLayout>
+            </RelativeLayout>
 
-            </RelativeLayout>
-            <RelativeLayout
-                android:id="@+id/card2"
-                android:layout_below="@id/card1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardElevation="10dp"
-                    app:cardCornerRadius="20dp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardMaxElevation="12dp"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true"
-                    >
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="170dp"
-                        android:src="@color/orange"
-                        />
-                </androidx.cardview.widget.CardView>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_below="@id/card2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardElevation="10dp"
-                    app:cardCornerRadius="20dp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardMaxElevation="12dp"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true"
-                    >
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="170dp"
-                        android:src="@color/orange"
-                        />
-                </androidx.cardview.widget.CardView>
-            </RelativeLayout>
+
         </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/card_home"
+            android:layout_above="@+id/bottom_menu"
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
 
         <RelativeLayout
             android:id="@+id/bottom_menu"

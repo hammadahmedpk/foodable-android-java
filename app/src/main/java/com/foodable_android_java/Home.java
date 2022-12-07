@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +22,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
     BottomNavigationView bottomNavigationView;
@@ -28,6 +33,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     ImageView profile;
     DrawerLayout drawerLayout;
     ImageView toggler;
+    RecyclerView rv;
+    FoodCardAdapter adapter;
+    List<FoodCardModel> foodCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +78,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
-
+        rv= findViewById(R.id.rv);
+        foodCard = new ArrayList<>();
+        foodCard.add(new FoodCardModel(Url, "Food 1", "500 m", "Anas hameed",Url));
+        foodCard.add(new FoodCardModel(Url, "Food 1", "500 m", "Anas hameed",Url));
+        foodCard.add(new FoodCardModel(Url, "Food 1", "500 m", "Anas hameed",Url));
+        adapter = new FoodCardAdapter(foodCard, this);
+        rv.setAdapter(adapter);
+        rv.setLayoutManager(new LinearLayoutManager(this));
 
     }
     private void bottomNavigationHandle() {
