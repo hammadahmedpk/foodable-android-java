@@ -180,10 +180,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 Intent intent = new Intent(getApplicationContext(), DonateActivity.class);
                 startActivity(intent);
             }
-            else if(item.getItemId() == R.id.setting){
-                Intent intent = new Intent(getApplicationContext(), ReceiveActivity.class);
-                startActivity(intent);
-            }
             return true;
         });
 

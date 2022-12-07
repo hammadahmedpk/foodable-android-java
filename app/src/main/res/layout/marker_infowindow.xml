@@ -1,87 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="250dp"
-    android:layout_height="120dp"
-    app:cardBackgroundColor="#e68b29"
-    app:cardCornerRadius="10dp"
-    app:cardPreventCornerOverlap="true"
-    app:cardUseCompatPadding="true">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="1"
-        android:orientation="horizontal"
-        >
         <ImageView
             android:id="@+id/itemImg"
-            android:layout_weight=".4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            />
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".03"
-            />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/signup_logo" />
 
-        <RelativeLayout
-            android:layout_weight="0.57"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/itemName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Item Name"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginVertical="10dp"
-                android:textColor="@color/white"
-                />
-            <ImageView
-                android:id="@+id/userImg"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_below="@+id/itemName"
-                />
-            <TextView
-                android:layout_marginStart="5dp"
-                android:layout_toRightOf="@id/userImg"
-                android:layout_below="@id/itemName"
-                android:id="@+id/userName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Item Name"
-                android:textColor="@color/white"
-                />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/userImg"
-                android:layout_marginTop="5dp"
-                >
-                <ImageView
-                    android:id="@+id/locationIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/location_icon_black"
-                    />
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/itemImg"
+            android:text="Username"
+            android:textColor="@color/black"
+            android:textSize="10dp" />
 
-                <TextView
+        <TextView
+            android:id="@id/itemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/userName"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/itemImg"
+            android:text="Testing"
+            android:textColor="@color/black"
+            android:textSize="8dp" />
 
-                    android:id="@+id/distance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="5dp"
-                    android:layout_toRightOf="@id/locationIcon"
-                    android:text="555 m"
-                    android:textColor="@color/white" />
-            </RelativeLayout>
-        </RelativeLayout>
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+</RelativeLayout>
