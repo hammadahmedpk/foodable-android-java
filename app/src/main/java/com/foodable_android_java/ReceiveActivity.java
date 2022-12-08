@@ -21,6 +21,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +36,7 @@ public class ReceiveActivity extends AppCompatActivity {
     EditText name, description;
     AppCompatButton submitButton;
     Double latitude = 0.0, longitude = 0.0;
-    String donationId, donationName, donationDesc, donationLocationLat, donationLocationLng, donationImg;
+    String donorId, donationId, donationName, donationDesc, donationLocationLat, donationLocationLng, donationImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class ReceiveActivity extends AppCompatActivity {
         donationLocationLng = getIntent().getStringExtra("donationLocationLng");
         donationDesc = getIntent().getStringExtra("donationDesc");
         donationImg = getIntent().getStringExtra("donationImg");
+        donorId = getIntent().getStringExtra("donorId");
 
         selectLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +73,9 @@ public class ReceiveActivity extends AppCompatActivity {
                 if (name.getText().toString().isEmpty() || description.getText().toString().isEmpty() || latitude == 0.0 || longitude == 0.0) {
                     Toast.makeText(ReceiveActivity.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ReceiveActivity.this, "Receiver Information Uploaded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReceiveActivity.this, "Product Requested!", Toast.LENGTH_SHORT).show();
+                    FirebaseDatabase.getInstance().getReference("donations").child(donorId).child(donationId).removeValue();
+                    FirebaseStorage.getInstance().getReferenceFromUrl(donationImg).delete();
                     sendNotification();
                     Intent i = new Intent(ReceiveActivity.this, RequestProgress.class);
                     i.putExtra("donationName", donationName);
@@ -111,7 +116,7 @@ public class ReceiveActivity extends AppCompatActivity {
         JSONObject json = null;
         try {
             json= new JSONObject("{'app_id':'b717cf86-240c-4897-a95a-1a39996c2e23'," +
-                    "'include_external_user_ids': [ '" + donationId + "' ]," +
+                    "'include_external_user_ids': [ '" + donorId + "' ]," +
                     "'contents': { 'en' : 'Your Item is Requested' } ," +
                     " 'headings' :{'en':'Message From "+userName+"'} }");
             json.put("large_icon", donationImg);
