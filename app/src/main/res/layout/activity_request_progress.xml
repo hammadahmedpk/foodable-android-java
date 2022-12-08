@@ -144,14 +144,17 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/requestCompleted"
-        android:layout_below="@id/distance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
-        android:text="Back to Home"
-        android:textAllCaps="false"
+        android:layout_below="@id/distance"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/round_corner_button"
-        android:textSize="18sp"
-        android:textColor="@color/white" />
+        android:text="Mark as Completed"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
 </RelativeLayout>

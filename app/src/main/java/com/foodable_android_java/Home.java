@@ -141,6 +141,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                                             }
                                         }
                                         adapter.setList(foodCard);
+                                        if (foodCard.size() == 0){
+                                            Toast.makeText(Home.this, "No donations found", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                 });
 
