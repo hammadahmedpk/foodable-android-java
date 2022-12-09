@@ -18,6 +18,9 @@
         android:theme="@style/Theme.Foodableandroidjava"
         tools:targetApi="31">
         <activity
+            android:name=".ForgotPassword"
+            android:exported="false" />
+        <activity
             android:name=".RequestProgress"
             android:exported="false" />
         <activity

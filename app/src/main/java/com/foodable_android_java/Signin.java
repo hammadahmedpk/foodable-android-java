@@ -32,6 +32,7 @@ public class Signin extends AppCompatActivity {
     FirebaseAuth auth;
     EditText email, Password;
     TextView signUp;
+    TextView forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class Signin extends AppCompatActivity {
         email   = findViewById(R.id.email);
         Password= findViewById(R.id.password);
 
+        forgotPassword = findViewById(R.id.forgotPassword);
         signUp= findViewById(R.id.signUp);
 
         auth= FirebaseAuth.getInstance();
@@ -57,6 +59,14 @@ public class Signin extends AppCompatActivity {
                 } else {
                     Password.setInputType(129);
                 }
+            }
+        });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Signin.this, ForgotPassword.class);
+                startActivity(intent);
             }
         });
 
