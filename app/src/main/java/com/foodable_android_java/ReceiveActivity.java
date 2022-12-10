@@ -47,6 +47,7 @@ public class ReceiveActivity extends AppCompatActivity {
         description = findViewById(R.id.desc);
         submitButton = findViewById(R.id.submit_button);
         backButtton = findViewById(R.id.back_button);
+
         donationId = getIntent().getStringExtra("donationId");
         donationName = getIntent().getStringExtra("donationName");
         donationLocationLat = getIntent().getStringExtra("donationLocationLat");
@@ -120,6 +121,15 @@ public class ReceiveActivity extends AppCompatActivity {
                     "'contents': { 'en' : 'Your Item is Requested' } ," +
                     " 'headings' :{'en':'Message From "+userName+"'} }");
             json.put("large_icon", donationImg);
+
+            System.out.println("donationName: " + donationName);
+            System.out.println("donationLocationLat: " + donationLocationLat);
+            System.out.println("donationLocationLng: " + donationLocationLng);
+            System.out.println("donationDesc: " + donationDesc);
+            System.out.println("name: " + name.getText().toString());
+            System.out.println("description: " + description.getText().toString());
+            System.out.println("latitude: " + latitude.toString());
+            System.out.println("longitude: " + longitude.toString());
 
             JSONObject data = new JSONObject("{" +
                     "'donationName': '"+ donationName + "'," +
