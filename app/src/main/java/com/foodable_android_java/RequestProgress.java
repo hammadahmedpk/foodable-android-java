@@ -37,11 +37,6 @@ public class RequestProgress extends AppCompatActivity {
         receiverLocationLat = getIntent().getStringExtra("receiverLocationLat");
         receiverLocationLng = getIntent().getStringExtra("receiverLocationLng");
 
-        System.out.println("Donation Location Lat: " + donationLocationLat);
-        System.out.println("Donation Location Lng: " + donationLocationLng);
-        System.out.println("Receiver Location Lat: " + receiverLocationLat);
-        System.out.println("Receiver Location Lng: " + receiverLocationLng);
-
 
         LatLng donationLocation = new LatLng(Double.parseDouble(donationLocationLat), Double.parseDouble(donationLocationLng));
         LatLng receiverLocation = new LatLng(Double.parseDouble(receiverLocationLat), Double.parseDouble(receiverLocationLng));

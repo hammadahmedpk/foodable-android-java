@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String ONESIGNAL_APP_ID = "b717cf86-240c-4897-a95a-1a39996c2e23";
     String donationName, donationLocationLat, donationLocationLng, donationDesc, receiverName, receiverDesc, receiverLocationLat, receiverLocationLng;
 
+    boolean flag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,19 +36,20 @@ public class MainActivity extends AppCompatActivity {
         OneSignal.setNotificationOpenedHandler(new OneSignal.OSNotificationOpenedHandler() {
             @Override
             public void notificationOpened(OSNotificationOpenedResult result) {
-                donationName = getIntent().getStringExtra("donationName");
-                donationLocationLat = getIntent().getStringExtra("donationLocationLat");
-                donationLocationLng = getIntent().getStringExtra("donationLocationLng");
-                donationDesc = getIntent().getStringExtra("donationDesc");
-                receiverName = getIntent().getStringExtra("receiverName");
-                receiverDesc = getIntent().getStringExtra("receiverDesc");
-                receiverLocationLat = getIntent().getStringExtra("receiverLocationLat");
-                receiverLocationLng = getIntent().getStringExtra("receiverLocationLng");
+                try {
+                    flag = true;
+                    donationName = result.getNotification().getAdditionalData().getString("donationName");
+                    donationLocationLat = result.getNotification().getAdditionalData().getString("donationLocationLat");
+                    donationLocationLng = result.getNotification().getAdditionalData().getString("donationLocationLng");
+                    donationDesc = result.getNotification().getAdditionalData().getString("donationDesc");
+                    receiverName = result.getNotification().getAdditionalData().getString("receiverName");
+                    receiverDesc = result.getNotification().getAdditionalData().getString("receiverDesc");
+                    receiverLocationLat = result.getNotification().getAdditionalData().getString("receiverLocationLat");
+                    receiverLocationLng = result.getNotification().getAdditionalData().getString("receiverLocationLng");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                System.out.println("Noti. Donation Location Lat: " + donationLocationLat);
-                System.out.println("Noti. Donation Location Lng: " + donationLocationLng);
-                System.out.println("Noti. Receiver Location Lat: " + receiverLocationLat);
-                System.out.println("Noti. Receiver Location Lng: " + receiverLocationLng);
 
                 Intent intent = new Intent(MainActivity.this, RequestProgress.class);
                 intent.putExtra("donationName", donationName);
@@ -61,28 +63,6 @@ public class MainActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
-                //Intent intent = new Intent(getApplicationContext(), CallReceive.class);
-                //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
-                //startActivity(intent);
-                //try {
-                    //String name = null, userID = null, profile_pic = null;
-                    //String notification_type = result.getNotification().getAdditionalData().getString("notification_type");
-                    //System.out.println("notification_type: " + notification_type);
-                    ////notification_type = result.getNotification().getAdditionalData().getString("notification_type");
-                    //name = result.getNotification().getAdditionalData().getString("name");
-                    //userID = result.getNotification().getAdditionalData().getString("userID");
-                    //profile_pic = result.getNotification().getAdditionalData().getString("profile_pic");
-                    //
-                    //Intent intent = new Intent(getApplicationContext(), RequestProgress.class);
-                    //intent.putExtra("userID", userID);
-                    //intent.putExtra("profile_pic", profile_pic);
-                    //intent.putExtra("name", name);
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    //startActivity(intent);
-
-                //} catch(JSONException e){
-                //    e.printStackTrace();
-                //}
             }
         });
 
@@ -101,16 +81,19 @@ public class MainActivity extends AppCompatActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(user != null) {
-                    System.out.println("User is logged in"+ user.getEmail());
-                    Intent intent = new Intent(MainActivity.this, Home.class);
-                    startActivity(intent);
-                    finish();
-                }else{
-                    Intent intent = new Intent(MainActivity.this, Signup.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
-                    finish();
+                if(flag == false)
+                {
+                    if(user != null) {
+                        System.out.println("User is logged in"+ user.getEmail());
+                        Intent intent = new Intent(MainActivity.this, Home.class);
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        Intent intent = new Intent(MainActivity.this, Signup.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
             }
         }, 1300L);

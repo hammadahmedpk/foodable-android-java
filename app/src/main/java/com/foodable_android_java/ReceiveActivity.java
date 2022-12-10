@@ -122,14 +122,6 @@ public class ReceiveActivity extends AppCompatActivity {
                     " 'headings' :{'en':'Message From "+userName+"'} }");
             json.put("large_icon", donationImg);
 
-            System.out.println("donationName: " + donationName);
-            System.out.println("donationLocationLat: " + donationLocationLat);
-            System.out.println("donationLocationLng: " + donationLocationLng);
-            System.out.println("donationDesc: " + donationDesc);
-            System.out.println("name: " + name.getText().toString());
-            System.out.println("description: " + description.getText().toString());
-            System.out.println("latitude: " + latitude.toString());
-            System.out.println("longitude: " + longitude.toString());
 
             JSONObject data = new JSONObject("{" +
                     "'donationName': '"+ donationName + "'," +
@@ -139,7 +131,7 @@ public class ReceiveActivity extends AppCompatActivity {
                     "'receiverName': '"+ name.getText().toString() + "'," +
                     "'receiverDesc': '"+ description.getText().toString() + "'," +
                     "'receiverLocationLat': '"+ latitude.toString() + "'," +
-                    "'receiverLocationLng': '"+ longitude.toString() + "'," +
+                    "'receiverLocationLng': '"+ longitude.toString() + "'" +
                     "}");
             json.put("data", data);
 
