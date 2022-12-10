@@ -43,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
                 receiverDesc = getIntent().getStringExtra("receiverDesc");
                 receiverLocationLat = getIntent().getStringExtra("receiverLocationLat");
                 receiverLocationLng = getIntent().getStringExtra("receiverLocationLng");
+
+                System.out.println("Noti. Donation Location Lat: " + donationLocationLat);
+                System.out.println("Noti. Donation Location Lng: " + donationLocationLng);
+                System.out.println("Noti. Receiver Location Lat: " + receiverLocationLat);
+                System.out.println("Noti. Receiver Location Lng: " + receiverLocationLng);
+
                 Intent intent = new Intent(MainActivity.this, RequestProgress.class);
                 intent.putExtra("donationName", donationName);
                 intent.putExtra("donationLocationLat", donationLocationLat);

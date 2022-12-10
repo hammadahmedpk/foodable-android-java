@@ -13,6 +13,7 @@ import com.google.maps.android.SphericalUtil;
 
 public class RequestProgress extends AppCompatActivity {
     TextView donationName, donationDesc, receiverName, receiverDesc, distance;
+    String donationLocationLat, donationLocationLng, receiverLocationLat, receiverLocationLng;
     AppCompatButton requestCompleted;
 
     @Override
@@ -30,7 +31,24 @@ public class RequestProgress extends AppCompatActivity {
         receiverName.setText(getIntent().getStringExtra("receiv" +
                 "erName"));
         receiverDesc.setText(getIntent().getStringExtra("receiverDesc"));
-        double dist = SphericalUtil.computeDistanceBetween(new LatLng(Double.parseDouble(getIntent().getStringExtra("donationLocationLat")), Double.parseDouble(getIntent().getStringExtra("donationLocationLng"))), new LatLng(Double.parseDouble(getIntent().getStringExtra("receiverLocationLat")), Double.parseDouble(getIntent().getStringExtra("receiverLocationLng"))));
+
+        donationLocationLat = getIntent().getStringExtra("donationLocationLat");
+        donationLocationLng = getIntent().getStringExtra("donationLocationLng");
+        receiverLocationLat = getIntent().getStringExtra("receiverLocationLat");
+        receiverLocationLng = getIntent().getStringExtra("receiverLocationLng");
+
+        System.out.println("Donation Location Lat: " + donationLocationLat);
+        System.out.println("Donation Location Lng: " + donationLocationLng);
+        System.out.println("Receiver Location Lat: " + receiverLocationLat);
+        System.out.println("Receiver Location Lng: " + receiverLocationLng);
+
+
+        LatLng donationLocation = new LatLng(Double.parseDouble(donationLocationLat), Double.parseDouble(donationLocationLng));
+        LatLng receiverLocation = new LatLng(Double.parseDouble(receiverLocationLat), Double.parseDouble(receiverLocationLng));
+
+
+        double dist = SphericalUtil.computeDistanceBetween(donationLocation, receiverLocation);
+
         String distanceStr = String.format("%.2f", dist/1000)+ " km";
         distance.setText(distanceStr);
 
