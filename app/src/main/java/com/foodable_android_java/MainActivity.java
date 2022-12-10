@@ -12,10 +12,14 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.onesignal.OSNotificationOpenedResult;
 import com.onesignal.OneSignal;
+
+import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
     private static final String ONESIGNAL_APP_ID = "b717cf86-240c-4897-a95a-1a39996c2e23";
+    String donationName, donationLocationLat, donationLocationLng, donationDesc, receiverName, receiverDesc, receiverLocationLat, receiverLocationLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,55 @@ public class MainActivity extends AppCompatActivity {
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
         OneSignal.promptForPushNotifications();
+
+        OneSignal.setNotificationOpenedHandler(new OneSignal.OSNotificationOpenedHandler() {
+            @Override
+            public void notificationOpened(OSNotificationOpenedResult result) {
+                donationName = getIntent().getStringExtra("donationName");
+                donationLocationLat = getIntent().getStringExtra("donationLocationLat");
+                donationLocationLng = getIntent().getStringExtra("donationLocationLng");
+                donationDesc = getIntent().getStringExtra("donationDesc");
+                receiverName = getIntent().getStringExtra("receiverName");
+                receiverDesc = getIntent().getStringExtra("receiverDesc");
+                receiverLocationLat = getIntent().getStringExtra("receiverLocationLat");
+                receiverLocationLng = getIntent().getStringExtra("receiverLocationLng");
+                Intent intent = new Intent(MainActivity.this, RequestProgress.class);
+                intent.putExtra("donationName", donationName);
+                intent.putExtra("donationLocationLat", donationLocationLat);
+                intent.putExtra("donationLocationLng", donationLocationLng);
+                intent.putExtra("donationDesc", donationDesc);
+                intent.putExtra("receiverName", receiverName);
+                intent.putExtra("receiverDesc", receiverDesc);
+                intent.putExtra("receiverLocationLat", receiverLocationLat);
+                intent.putExtra("receiverLocationLng", receiverLocationLng);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+                //Intent intent = new Intent(getApplicationContext(), CallReceive.class);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+                //startActivity(intent);
+                //try {
+                    //String name = null, userID = null, profile_pic = null;
+                    //String notification_type = result.getNotification().getAdditionalData().getString("notification_type");
+                    //System.out.println("notification_type: " + notification_type);
+                    ////notification_type = result.getNotification().getAdditionalData().getString("notification_type");
+                    //name = result.getNotification().getAdditionalData().getString("name");
+                    //userID = result.getNotification().getAdditionalData().getString("userID");
+                    //profile_pic = result.getNotification().getAdditionalData().getString("profile_pic");
+                    //
+                    //Intent intent = new Intent(getApplicationContext(), RequestProgress.class);
+                    //intent.putExtra("userID", userID);
+                    //intent.putExtra("profile_pic", profile_pic);
+                    //intent.putExtra("name", name);
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    //startActivity(intent);
+
+                //} catch(JSONException e){
+                //    e.printStackTrace();
+                //}
+            }
+        });
+
 
         // For slider animation
         ImageView image = findViewById(R.id.splashLogo);

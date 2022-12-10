@@ -27,7 +27,8 @@ public class RequestProgress extends AppCompatActivity {
         requestCompleted = findViewById(R.id.requestCompleted);
         donationName.setText(getIntent().getStringExtra("donationName"));
         donationDesc.setText(getIntent().getStringExtra("donationDesc"));
-        receiverName.setText(getIntent().getStringExtra("receiverName"));
+        receiverName.setText(getIntent().getStringExtra("receiv" +
+                "erName"));
         receiverDesc.setText(getIntent().getStringExtra("receiverDesc"));
         double dist = SphericalUtil.computeDistanceBetween(new LatLng(Double.parseDouble(getIntent().getStringExtra("donationLocationLat")), Double.parseDouble(getIntent().getStringExtra("donationLocationLng"))), new LatLng(Double.parseDouble(getIntent().getStringExtra("receiverLocationLat")), Double.parseDouble(getIntent().getStringExtra("receiverLocationLng"))));
         String distanceStr = String.format("%.2f", dist/1000)+ " km";

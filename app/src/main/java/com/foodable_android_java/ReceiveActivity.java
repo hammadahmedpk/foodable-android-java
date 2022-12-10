@@ -121,6 +121,18 @@ public class ReceiveActivity extends AppCompatActivity {
                     " 'headings' :{'en':'Message From "+userName+"'} }");
             json.put("large_icon", donationImg);
 
+            JSONObject data = new JSONObject("{" +
+                    "'donationName': '"+ donationName + "'," +
+                    "'donationLocationLat': '"+ donationLocationLat + "'," +
+                    "'donationLocationLng': '"+ donationLocationLng + "'," +
+                    "'donationDesc': '"+ donationDesc + "'," +
+                    "'receiverName': '"+ name.getText().toString() + "'," +
+                    "'receiverDesc': '"+ description.getText().toString() + "'," +
+                    "'receiverLocationLat': '"+ latitude.toString() + "'," +
+                    "'receiverLocationLng': '"+ longitude.toString() + "'," +
+                    "}");
+            json.put("data", data);
+
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(ReceiveActivity.this,"JSON Error",Toast.LENGTH_LONG).show();
