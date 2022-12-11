@@ -137,7 +137,12 @@ public class FoodMapActivity extends FragmentActivity implements OnMapReadyCallb
             }
         });
 
-        getOtherDonations();
+        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
+                getOtherDonations();
+            }
+        });
 
         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override

@@ -70,6 +70,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         toggler= findViewById(R.id.toggler);
         dp = findViewById(R.id.dp);
 
+        SharedPreferences location = getSharedPreferences("location", MODE_PRIVATE);
+        currentLocation = new LatLng(Double.parseDouble(location.getString("latitude", "0")), Double.parseDouble(location.getString("longitude", "0")));
+
         SharedPreferences sharedPreferences = getSharedPreferences("userProfile", MODE_PRIVATE);
         String Fname = sharedPreferences.getString("firstName", "");
         String lName= sharedPreferences.getString("lastName", "");
@@ -96,72 +99,37 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
 
-        // Set User location
-        setUserLocation();
+        getDonationCards();
 
     }
 
 
-
-
-    private void setUserLocation(){
-        FusedLocationProviderClient fusedLocationClient= LocationServices.getFusedLocationProviderClient(this);
-        if (ActivityCompat.checkSelfPermission(Home.this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(Home.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            CurrentLocationRequest request = new CurrentLocationRequest.Builder()
-                    .setGranularity(Granularity.GRANULARITY_FINE)
-                    .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
-                    .setDurationMillis(4000)
-                    .setMaxUpdateAgeMillis(0)
-                    .build();
-
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            fusedLocationClient.getCurrentLocation(request, cancellationTokenSource.getToken())
-                    .addOnSuccessListener(location -> {
-                        if (location != null) {
-                            currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            // get all the data from the database
-                            FirebaseDatabase.getInstance().getReference("donations").get().addOnCompleteListener(task -> {
-                                    if (task.isSuccessful()) {
-                                        DataSnapshot dataSnapshot = task.getResult();
-                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                            for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                                                String title= snapshot1.child("title").getValue().toString();
-                                                String lat = snapshot1.child("location").child("latitude").getValue().toString();
-                                                String lng = snapshot1.child("location").child("longitude").getValue().toString();
-                                                LatLng donationLocation = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
-                                                String userName= snapshot1.child("name").getValue().toString();
-                                                String userProfile= snapshot1.child("profile").getValue().toString();
-                                                double distance= SphericalUtil.computeDistanceBetween(currentLocation, donationLocation);
-                                                String distanceStr= String.valueOf(distance);
-                                                // round to two decimal places
-                                                distanceStr= String.format("%.2f", distance/1000)+ " km";
-                                                String ItemImage= snapshot1.child("images").child("0").getValue().toString();
-                                                foodCard.add(new FoodCardModel(ItemImage, title, distanceStr, userName, userProfile));
-                                            }
-                                        }
-                                        adapter.setList(foodCard);
-                                        if (foodCard.size() == 0){
-                                            Toast.makeText(Home.this, "No donations found", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-
-
-                            // toast the location
-                            //Toast.makeText(Home.this, "Lat: " + location.getLatitude() + " Long: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            Toast.makeText(Home.this, "Location not found!", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(Home.this, "Location not found!33", Toast.LENGTH_SHORT).show();
-                    });
-        }
-        else {
-            Toast.makeText(Home.this, "Location Permission not granted", Toast.LENGTH_SHORT).show();
-        }
+    private void getDonationCards(){
+        FirebaseDatabase.getInstance().getReference("donations").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DataSnapshot dataSnapshot = task.getResult();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                        String title= snapshot1.child("title").getValue().toString();
+                        String lat = snapshot1.child("location").child("latitude").getValue().toString();
+                        String lng = snapshot1.child("location").child("longitude").getValue().toString();
+                        LatLng donationLocation = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+                        String userName= snapshot1.child("name").getValue().toString();
+                        String userProfile= snapshot1.child("profile").getValue().toString();
+                        double distance= SphericalUtil.computeDistanceBetween(currentLocation, donationLocation);
+                        String distanceStr= String.valueOf(distance);
+                        // round to two decimal places
+                        distanceStr= String.format("%.2f", distance/1000)+ " km";
+                        String ItemImage= snapshot1.child("images").child("0").getValue().toString();
+                        foodCard.add(new FoodCardModel(ItemImage, title, distanceStr, userName, userProfile));
+                    }
+                }
+                adapter.setList(foodCard);
+                if (foodCard.size() == 0){
+                    Toast.makeText(Home.this, "No donations found", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
 

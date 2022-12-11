@@ -28,8 +28,7 @@ public class RequestProgress extends AppCompatActivity {
         requestCompleted = findViewById(R.id.requestCompleted);
         donationName.setText(getIntent().getStringExtra("donationName"));
         donationDesc.setText(getIntent().getStringExtra("donationDesc"));
-        receiverName.setText(getIntent().getStringExtra("receiv" +
-                "erName"));
+        receiverName.setText(getIntent().getStringExtra("receiverName"));
         receiverDesc.setText(getIntent().getStringExtra("receiverDesc"));
 
         donationLocationLat = getIntent().getStringExtra("donationLocationLat");
