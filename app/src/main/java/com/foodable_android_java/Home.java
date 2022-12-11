@@ -1,5 +1,6 @@
 package com.foodable_android_java;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.ObjectKey;
 import com.google.android.gms.location.CurrentLocationRequest;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Granularity;
@@ -78,10 +81,11 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         String lName= sharedPreferences.getString("lastName", "");
         userName.setText(Fname + " " + lName);
         String Url= sharedPreferences.getString("profile", "");
+        String edit= sharedPreferences.getString("edit", "");
 
         // set the profile image
-        Glide.with(getApplicationContext()).load(Url).circleCrop().into(profile);
-        Glide.with(getApplicationContext()).load(Url).circleCrop().into(dp);
+        Glide.with(getApplicationContext()).load(Url).circleCrop().signature(new ObjectKey(edit)).into(profile);
+        Glide.with(getApplicationContext()).load(Url).circleCrop().signature(new ObjectKey(edit)).into(dp);
 
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
@@ -156,6 +160,21 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         });
 
     }
+
+
+//    @Override
+//    public void OnbackPressed() {
+//        // Handle the back button event
+//        SharedPreferences sharedPreferences = getSharedPreferences("userProfile", MODE_PRIVATE);
+//        System.out.println(sharedPreferences.getString("edit", ""));
+//        String Url= sharedPreferences.getString("profile", "");
+//        String edit= sharedPreferences.getString("edit", "");
+//        // set the profile image
+//        Glide.with(getApplicationContext()).load(Url).circleCrop().signature(new ObjectKey(edit)).into(profile);
+//        Glide.with(getApplicationContext()).load(Url).circleCrop().signature(new ObjectKey(edit)).into(dp);
+//        finish();
+//    }
+
 
 
     @Override
