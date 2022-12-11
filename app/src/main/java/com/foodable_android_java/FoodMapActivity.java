@@ -38,7 +38,7 @@ import java.util.ArrayList;
 public class FoodMapActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationClient;
-    LatLng currentLocation;
+    LatLng currentLocation, donateLocation = null;
     ImageButton backButtton, myLocation;
     Marker currentMarker;
     ArrayList<Donation> donations;
@@ -51,6 +51,11 @@ public class FoodMapActivity extends FragmentActivity implements OnMapReadyCallb
         setContentView(R.layout.activity_foodmap);
         myLocation = findViewById(R.id.my_location);
         backButtton = findViewById(R.id.back_button);
+        double lat = getIntent().getDoubleExtra("latitude", 0);
+        double lng = getIntent().getDoubleExtra("longitude", 0);
+        if (lat != 0 && lng != 0) {
+            donateLocation = new LatLng(lat, lng);
+        }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         donations = new ArrayList<>();
         donorIds = new ArrayList<>();
@@ -110,13 +115,20 @@ public class FoodMapActivity extends FragmentActivity implements OnMapReadyCallb
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        if (donateLocation != null) {
+            mMap.addMarker(new MarkerOptions().position(donateLocation).title("Donation Location"));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(donateLocation, 14));
+        }
+
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, location -> {
                     if (location != null) {
                         currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
                         currentMarker = mMap.addMarker(new MarkerOptions().position(currentLocation).title("Last Location"));
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 14));
+                        if(donateLocation == null) {
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 14));
+                        }
                     }
                 });
         }

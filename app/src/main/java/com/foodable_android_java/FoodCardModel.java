@@ -1,19 +1,33 @@
 package com.foodable_android_java;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class FoodCardModel {
     String ItemImg;
     String ItemName;
     String ItemDistance;
     String Donate_Name;
     String Donate_Img;
+    LatLng donateLocation;
+
     FoodCardModel(){
     }
-    FoodCardModel(String ItemImg, String ItemName, String ItemDistance, String Donate_Name, String Donate_Img){
+
+    FoodCardModel(String ItemImg, String ItemName, String ItemDistance, String Donate_Name, String Donate_Img, LatLng donateLocation){
         this.ItemImg = ItemImg;
         this.ItemName = ItemName;
         this.ItemDistance = ItemDistance;
         this.Donate_Name = Donate_Name;
         this.Donate_Img = Donate_Img;
+        this.donateLocation = donateLocation;
+    }
+
+    public LatLng getDonateLocation() {
+        return donateLocation;
+    }
+
+    public void setDonateLocation(LatLng donateLocation) {
+        this.donateLocation = donateLocation;
     }
 
     public String getItemImg() {

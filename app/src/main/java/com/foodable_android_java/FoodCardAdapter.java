@@ -48,6 +48,8 @@ public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardAdapter.myView
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(c, FoodMapActivity.class);
+                intent.putExtra("latitude",ls.get(position).getDonateLocation().latitude);
+                intent.putExtra("longitude",ls.get(position).getDonateLocation().longitude);
                 c.startActivity(intent);
             }
         });

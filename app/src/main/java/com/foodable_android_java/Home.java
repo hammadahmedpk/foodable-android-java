@@ -109,19 +109,20 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             if (task.isSuccessful()) {
                 DataSnapshot dataSnapshot = task.getResult();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                        String title= snapshot1.child("title").getValue().toString();
-                        String lat = snapshot1.child("location").child("latitude").getValue().toString();
-                        String lng = snapshot1.child("location").child("longitude").getValue().toString();
-                        LatLng donationLocation = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
-                        String userName= snapshot1.child("name").getValue().toString();
-                        String userProfile= snapshot1.child("profile").getValue().toString();
-                        double distance= SphericalUtil.computeDistanceBetween(currentLocation, donationLocation);
-                        String distanceStr= String.valueOf(distance);
-                        // round to two decimal places
-                        distanceStr= String.format("%.2f", distance/1000)+ " km";
-                        String ItemImage= snapshot1.child("images").child("0").getValue().toString();
-                        foodCard.add(new FoodCardModel(ItemImage, title, distanceStr, userName, userProfile));
+                    if (!snapshot.getKey().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                        for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                            String title = snapshot1.child("title").getValue().toString();
+                            String lat = snapshot1.child("location").child("latitude").getValue().toString();
+                            String lng = snapshot1.child("location").child("longitude").getValue().toString();
+                            LatLng donationLocation = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+                            String userName = snapshot1.child("name").getValue().toString();
+                            String userProfile = snapshot1.child("profile").getValue().toString();
+                            double distance = SphericalUtil.computeDistanceBetween(currentLocation, donationLocation);
+                            String distanceStr = String.valueOf(distance);
+                            distanceStr = String.format("%.2f", distance / 1000) + " km";
+                            String ItemImage = snapshot1.child("images").child("0").getValue().toString();
+                            foodCard.add(new FoodCardModel(ItemImage, title, distanceStr, userName, userProfile, donationLocation));
+                        }
                     }
                 }
                 adapter.setList(foodCard);
