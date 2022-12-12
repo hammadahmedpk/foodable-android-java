@@ -163,17 +163,25 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
 
 //    @Override
-//    public void OnbackPressed() {
-//        // Handle the back button event
-//        SharedPreferences sharedPreferences = getSharedPreferences("userProfile", MODE_PRIVATE);
-//        System.out.println(sharedPreferences.getString("edit", ""));
-//        String Url= sharedPreferences.getString("profile", "");
-//        String edit= sharedPreferences.getString("edit", "");
-//        // set the profile image
-//        Glide.with(getApplicationContext()).load(Url).circleCrop().signature(new ObjectKey(edit)).into(profile);
-//        Glide.with(getApplicationContext()).load(Url).circleCrop().signature(new ObjectKey(edit)).into(dp);
-//        finish();
-//    }
+    public void HandleBack() {
+        // Handle the back button event
+        SharedPreferences sharedPreferences = getSharedPreferences("userProfile", MODE_PRIVATE);
+        System.out.println(sharedPreferences.getString("edit", ""));
+        String Url= sharedPreferences.getString("profile", "");
+        String edit= sharedPreferences.getString("edit", "");
+        // set the profile image
+        Glide.with(getApplicationContext()).load(Url).circleCrop().signature(new ObjectKey(edit)).into(profile);
+        Glide.with(getApplicationContext()).load(Url).circleCrop().signature(new ObjectKey(edit)).into(dp);
+    }
+
+    @Override
+    // resume of the activity
+    public void onResume() {
+        super.onResume();
+        HandleBack();
+        // Select the navigation item
+        bottomNavigationView.setSelectedItemId(R.id.home);
+    }
 
 
 
